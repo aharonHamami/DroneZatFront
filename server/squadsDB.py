@@ -1,3 +1,11 @@
+# self.cursor.execute('''
+#             CREATE TABLE IF NOT EXISTS squads (
+#                          id integer PRIMARY KEY,
+#                          name text NOT NULL,
+#                          number_of_drones integer NOT NULL
+#             )
+#                          ''')
+
 import sqlite3
 
 class Database:
@@ -15,11 +23,12 @@ class Database:
     
     def create_table(self):
      self.cursor.execute('''
-           CREATE TABLE IF NOT EXISTS drones (
-             serial_number TEXT UNIQUE,  -- Add UNIQUE constraint to serial_number
-              inTheAir BOOLEAN
-           )
-        ''')
+            CREATE TABLE IF NOT EXISTS squads (
+                         id integer PRIMARY KEY,
+                         name text NOT NULL,
+                         number_of_drones integer NOT NULL
+            )
+    ''')
      self.connection.commit()
 
     def insert_Drone(self, serial_number, in_the_air):
@@ -35,28 +44,6 @@ class Database:
             print("Error:", str(e))
             return False
 
-
-    
-    def update_InTheAir(self, serial_number, in_the_air):
-        try:
-            self.cursor.execute("UPDATE drones SET inTheAir = ? WHERE serial_number = ?", (in_the_air, serial_number))
-            self.connection.commit()
-            return True
-        except Exception as e:
-            print("Error:", str(e))
-            return False
-    
-    
-    
-    def get_drone_info(self, drone_id):
-        if self.connection is None:
-            return
-        self.cursor.execute("SELECT serial_number, inTheAir FROM drones WHERE serial_number = ?;", (drone_id,))
-        rows = self.cursor.fetchall()
-        print(rows)
-        return rows
-    
-    
     def print_table(self):
         """
         Print visualization of the table {drowns}

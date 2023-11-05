@@ -3,6 +3,8 @@ import classes from './addPage.module.css';
 import { useState, useEffect } from 'react';
 
 import InputList from '../../Components/Input/InputList';
+import Button from '../../Components/Buttons/Submit/Button';
+import InfoCard from '../../HOR/Card/InfoCard';
 import axiosClient from '../../client/axiosClient';
 
 const changeValue = (setInputs, index, value) => {
@@ -28,24 +30,11 @@ const changeValue = (setInputs, index, value) => {
 const DRONE = 'drone';
 const droneInitialInputs = [
     {
-        type: 'select',
+        type: 'datalist',
         name: 'squad',
         label: 'פלוגה',
-        value: 'a',
-        options: [
-            {
-                value: 'a',
-                text: 'פלוגה א'
-            },
-            {
-                value: 'b',
-                text: 'פלוגה ב'
-            },
-            {
-                value: 'c',
-                text: 'פלוגה ג'
-            }
-        ]
+        value: '',
+        options: ['פלוגה א', 'פלוגה ב', 'פלוגה ג']
     },
     {
         type: 'number',
@@ -106,14 +95,14 @@ const Add = () => {
             formData.append(inputObj.name, inputObj.value);
         }
         
-        console.log('submitted');
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
+        const sendData = {};
+        for(let inputObj of inputArray){
+            sendData[inputObj.name] = inputObj.value;
         }
         
+        console.log('submitted');
         
-        // axiosClient.post('/add', formData, {Headers: { "Content-Type": "multipart/form-data" }})
-        axiosClient.postForm('/add', formData)
+        axiosClient.post('/add', sendData)
             .then(function (response) {
                 //handle success
                 console.log('success', response);
@@ -123,21 +112,6 @@ const Add = () => {
                 console.log('error: ', response);
             });
             
-        
-        // const sendData = {};
-        // for(let inputObj of inputArray){
-        //     sendData[inputObj.name] = inputObj.value;
-        // }
-        // axiosClient.post('/add', sendData)
-        //     .then(function (response) {
-        //         //handle success
-        //         console.log('success', response);
-        //     })
-        //     .catch(function (response) {
-        //         //handle error
-        //         console.log('error: ', response);
-        //     });
-        
     }
     
     let errorMessage = '';
@@ -151,22 +125,22 @@ const Add = () => {
     
     return (
         <div className={classes.page}>
-            <div className={classes.card}>
+            <InfoCard>
                 <div className={classes.selectSection}>
                     <button className={subject===SQUAD ? classes.selected : null} onClick={() => {setSubject(SQUAD)}}>פלוגה</button>
                     <button className={subject===DRONE ? classes.selected : null} onClick={() => {setSubject(DRONE)}}>רחפן</button>
                 </div>
                 <div className={classes.content}>
-                <h1>הוספה:</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className={classes.inputs}>
-                        <InputList inputArray={inputArray} setValue={(index, value) => {changeValue(setInputArray, index, value)}}/>
-                    </div>
-                    <p style={{color: 'red'}}>{errorMessage}</p>
-                    <button type='submit'>הוסף</button>
-                </form>
-            </div>
-            </div>
+                    <h1>הוספה:</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className={classes.inputs}>
+                            <InputList inputArray={inputArray} setValue={(index, value) => {changeValue(setInputArray, index, value)}}/>
+                        </div>
+                        <p style={{color: 'red'}}>{errorMessage}</p>
+                        <Button type='submit' variant='success'>הוסף</Button>
+                    </form>
+                </div>
+            </InfoCard>
         </div>
     );
 }

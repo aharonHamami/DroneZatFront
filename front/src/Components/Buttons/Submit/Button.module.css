@@ -1,0 +1,31 @@
+#submitButton {
+    min-width: 60px;
+    height: 35px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 2px solid #6a6a6a;
+    color: white;
+    background-color: #848484;
+}
+
+#submitButton:hover {
+    background-color: #c2c2c2;
+}
+
+#submitButton.success {
+    border: 2px solid #136539;
+    background-color: #18864b;
+}
+
+#submitButton.success:hover {
+    background-color: #28b067;
+}
+
+#submitButton.error {
+    border: 2px solid #651313;
+    background-color: #b02828;
+}
+
+#submitButton.error:hover {
+    background-color: #e33131;
+}

@@ -1,0 +1,14 @@
+.inputField {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    text-align: left;
+}
+
+/* .inputField label {
+    font-size: medium;
+} */
+
+.inputField input {
+    height: 20px;
+}
