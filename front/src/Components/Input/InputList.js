@@ -9,7 +9,7 @@ const InputList = (props) => {
             isValid = obj.validation.isValid;
         }
         
-        const inputComp = <label style={{width: '85px', color: isValid ? 'black' : 'red', textAlign: 'start'}} >{obj.label}</label>;
+        const labelComp = <label style={{width: '85px', color: isValid ? 'black' : 'red', textAlign: 'start'}} >{obj.label}</label>;
         
         switch (obj.type) {
             case 'text-field':
@@ -17,7 +17,7 @@ const InputList = (props) => {
             case 'number': {
                 return (
                     <div key={'input_'+index} style={{display: 'flex', flexDirection:'row', gap: '10px', textAlign: 'left'}}>
-                        {inputComp}
+                        {labelComp}
                         <input
                             type={obj.type} name={obj.name}
                             value={obj.value} /*error={!isValid}*/
@@ -29,20 +29,22 @@ const InputList = (props) => {
             case 'select': {
                 return (
                     <div key={'input_'+index} style={{display: 'flex', flexDirection:'row', gap: '10px', textAlign: 'left'}}>
-                        {inputComp}
-                        <input list="datalist"/>
-                        <datalist id='datalist' name={obj.name}>
+                        {labelComp}
+                        <select name={obj.name}>
                             {obj.options.map(opt => {
-                                return <option key={'option_'+opt.value} value={opt.value} />//{opt.text}</option>
+                                return <option key={'option_'+opt.value} value={opt.value}>{opt.text}</option>
                             })}
-                        </datalist>
+                        </select>
                     </div>
                 );
+            }
+            case 'datalist': {
+                
             }
             case 'checkbox': {
                 return (
                     <div key={'input_'+index} style={{display: 'flex', flexDirection:'row', gap: '10px', textAlign: 'left'}}>
-                        {inputComp}
+                        {labelComp}
                         <input 
                             type={obj.type} name={obj.name} checked={obj.value}
                             onChange={event => {props.setValue(index, event.target.checked)}}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Landing Page</title>
+</head>
+
+<body>
+    <h1>Welcome to the Landing Page</h1>
+    <form method="POST" action="/add">
+        <label for="serial_number">Serial Number:</label>
+        <input type="text" name="serial_number" required><br>
+        <label for="in_the_air">In The Air:</label>
+        <input type="checkbox" name="in_the_air"><br>
+        <input type="submit" name="add" value="Add to Database">
+    </form>
+
+    <h1>update status of a drone</h1>
+    <form method="POST" action="/update">
+        <label for="serial_number">Serial Number:</label>
+        <input type="text" name="update_serial_number" placeholder="Enter Serial Number" required><br>
+        <label for="update_in_the_air">Update In The Air:</label>
+        <input type="checkbox" name="update_in_the_air"><br>
+        <input type="submit" name="update" value="Update In The Air Status">
+    </form>
+</body>
+
+</html>
